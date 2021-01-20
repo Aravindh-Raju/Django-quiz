@@ -1,0 +1,68 @@
+
+{% extends "quiz/base.html" %}
+
+{% block content %}
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-5">
+            {% if error %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error }}
+                </div>
+            {% endif %}
+            <div class="container">
+              <h1 class="text-danger mt-3"><u>Python Quiz</u></h1>
+              <p>Following quiz provides Multiple Choice Questions (MCQs) related to Python. You will have to read all the given answers and click over the correct answer. </p>
+              <hr>
+              <div>
+                {% for questions in quiz %}
+                  <table>
+                      <tr>
+                          <td class="text-primary">Q )  {{questions.Question}} ?</td>
+                      </tr>
+                      <tr>
+                          <td><input type = "radio" class="rb" name = {{questions.id}} id="Option1" value="{{questions.Option1}}"> {{questions.Option1}}</td>
+                      </tr>
+                      <tr>
+                          <td><input type = "radio" class="rb" name = {{questions.id}} id="Option2" value="{{questions.Option2}}"> {{questions.Option2}}</td>
+                      </tr>
+                      <tr>
+                          <td><input type = "radio" class="rb" name = {{questions.id}} id="Option3" value="{{questions.Option3}}"> {{questions.Option3}}</td>
+                      </tr>
+                      <tr>
+                          <td><input type = "radio" class="rb" name = {{questions.id}} id="Option4" value="{{questions.Option4}}"> {{questions.Option4}}</td>
+                      </tr>
+
+                      <tr>
+                          <td><label id="correct_ans" class= "rb" style="display:none ; color : green"><b>The Correct Answer Is : {{questions.CorrectAnswer}}</b></label></td>
+                      </tr>
+                      <tr>
+                          <td><label id="correct_ans" class= "rb" style="display:none"><b>Explanation : {{questions.Explanation}}</b></label></td>
+                      </tr>
+                  </table>
+                {% endfor %}
+                <input type="submit" class="btn-sm btn-success" value="Submit" id="b1" onclick="getAnswers()">
+                <br>
+                <hr>
+                <a role="button" class="btn btn-primary btn-md" href="{% url 'attendquiz' %}">Try Again ?</a>
+                <a role="button" class="btn btn-primary btn-md" href="{% url 'currentquiz' %}">Home</a>
+              </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
+    <br>
+    <script>
+      $(document).ready(function(){
+      $("#b1").click(function(){
+          $(".rb").show();
+          $(".rb").attr("disabled",true);
+          });
+      });
+      function getAnswers()
+      {
+      var e = document.getElementByTagName("input");
+      console.log(e)
+      }
+    </script>
+{% endblock %}
